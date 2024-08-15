@@ -15,6 +15,7 @@ export interface INestedObject extends Record<string, any> {
   children: INestedObject[];
   expand?: boolean;
   style?: CSSProperties;
+  disabled?: boolean;
 }
 
 interface IRenderButton {
@@ -43,6 +44,7 @@ export interface IOrgTreeProps {
   renderButton?: ({ onClick, isCollapsed }: IRenderButton) => JSX.Element;
   renderCard?: ({ isDragging, label, data, isPreviewCard }: IRenderCard) => any;
   cardStyle?: CSSProperties;
+  onDrop?: (...data:any) => any;
 }
 
 export interface INodeTree {

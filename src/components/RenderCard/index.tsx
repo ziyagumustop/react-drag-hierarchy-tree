@@ -19,7 +19,7 @@ export const RenderCard = ({
   setExpand,
   expand,
   mock,
-  prop: { renderCard, ...prop },
+  prop: { onDrop: onDropProp, renderCard, ...prop },
 }: IRenderCard) => {
   const {
     setHierarchy,
@@ -88,11 +88,11 @@ export const RenderCard = ({
     const componentCloneMock = document.getElementById(`node-tree-mock-clone`);
     componentCloneMock && componentCloneMock.remove();
   };
-
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: 'box',
       item: data,
+      canDrag: !data?.disabled,
       options: {
         dropEffect: 'copy',
       },
@@ -138,6 +138,8 @@ export const RenderCard = ({
   const onDrop = (drag: INestedObject) => {
     const dragItem = findById(drag.id);
     const dropItem = data;
+
+    onDropProp && onDropProp(dragItem, dropItem);
 
     const { parent: parentDragItem } = findParentByChildId(drag.id);
 
@@ -223,7 +225,11 @@ export const RenderCard = ({
           ref={drag}
           isDragging={isDragging}
           className={clx.join(' ')}
-          style={{ ...prop.cardStyle, ...data.style }}
+          style={{
+            ...prop.cardStyle,
+            ...data.style,
+            ...(data?.disabled && { cursor: 'no-drop' }),
+          }}
         >
           <StyledLabel id={`label_text_${data.id}`}>{label}</StyledLabel>
           {prop.collapsable && !isLastNode(data, prop) && (

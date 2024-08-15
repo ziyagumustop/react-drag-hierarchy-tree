@@ -18,6 +18,7 @@ const App = () => {
         data={data}
         ref={treeRef}
         horizontal
+        onDrop={(drag, drop) => console.log(drag, drop)}
         // cardStyle={{ fontSize: 1 }}
         // strokeColor={'red'}
         // strokeWidth={'1px'}
@@ -42,6 +43,7 @@ const App = () => {
         )}
         data={data}
         strokeColor={'red'}
+        onDrop={(drag, drop) => console.log(drag, drop)}
         ref={treeRef}
       />
     </div>

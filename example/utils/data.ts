@@ -5,6 +5,7 @@ export const data = {
     {
       id: 2,
       label: 'Administrative',
+      disabled: true,
       children: [
         {
           id: 3,
